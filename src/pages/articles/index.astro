@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PostList from '../../components/PostList.astro';
+import { getCollection } from 'astro:content';
+
+const articles = await getCollection('articles');
+const sorted = articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Layout
+  title="Articles"
+  description="Engineering deep dives on systems, architecture, databases, DevOps, and AI."
+>
+  <header class="mb-12 pb-8 border-b border-white/[0.06]">
+    <h1 class="text-3xl font-extrabold text-white mb-3">Articles</h1>
+    <p class="text-slate-500 text-sm">
+      Engineering deep dives — systems, architecture, databases, DevOps, AI.
+    </p>
+  </header>
+  <PostList posts={sorted} />
+</Layout>

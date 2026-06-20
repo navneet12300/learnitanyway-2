@@ -1,0 +1,70 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+---
+
+<Layout title={article.data.title} description={article.data.description}>
+  <article>
+    <header class="mb-12 pb-8 border-b border-white/[0.06]">
+      {
+        article.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-3 mb-4">
+            {article.data.tags.map((tag: string) => (
+              <span class="text-[11px] text-amber-600 tracking-wide uppercase">{tag}</span>
+            ))}
+          </div>
+        )
+      }
+      <h1 class="text-4xl font-extrabold text-white leading-tight mb-4">
+        {article.data.title}
+      </h1>
+      <p class="text-slate-600 text-sm">{formatDate(article.data.date)}</p>
+      <div class="h-0.5 w-10 bg-amber-500 mt-6"></div>
+    </header>
+
+    <div
+      class="prose prose-invert prose-slate max-w-none
+        prose-headings:text-white prose-headings:font-bold prose-headings:tracking-tight
+        prose-p:text-slate-400 prose-p:leading-loose
+        prose-a:text-amber-500 prose-a:no-underline hover:prose-a:underline
+        prose-code:text-amber-400 prose-code:bg-white/[0.06] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
+        prose-pre:bg-white/[0.05] prose-pre:border prose-pre:border-white/10 prose-pre:rounded-none
+        prose-strong:text-slate-200
+        prose-blockquote:border-l-amber-500 prose-blockquote:text-slate-400 prose-blockquote:not-italic
+        prose-hr:border-white/10
+        prose-li:text-slate-400"
+    >
+      <Content />
+    </div>
+
+    <footer class="mt-16 pt-8 border-t border-white/[0.06]">
+      <a href="/articles" class="text-[11px] tracking-[0.15em] uppercase text-slate-500 hover:text-white transition-colors">
+        ← All Articles
+      </a>
+    </footer>
+  </article>
+</Layout>
