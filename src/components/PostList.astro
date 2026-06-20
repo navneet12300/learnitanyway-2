@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+type AnyPost = CollectionEntry<'articles'> | CollectionEntry<'side-quests'>;
+
+interface Props {
+  posts: AnyPost[];
+}
+
+const { posts } = Astro.props;
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+
+function postUrl(post: AnyPost): string {
+  return `/${post.collection}/${post.id}`;
+}
+---
+
+<ul class="divide-y divide-white/[0.06]">
+  {
+    posts.map((post) => (
+      <li class="py-6">
+        <div class="flex items-baseline justify-between gap-4 mb-1.5">
+          <a
+            href={postUrl(post)}
+            class="text-white font-semibold text-[15px] leading-snug hover:text-amber-500 transition-colors"
+          >
+            {post.data.title}
+          </a>
+          <span class="text-xs text-slate-600 whitespace-nowrap shrink-0">
+            {formatDate(post.data.date)}
+          </span>
+        </div>
+        <p class="text-sm text-slate-500 leading-relaxed">{post.data.description}</p>
+        {post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-3 mt-2">
+            {post.data.tags.map((tag: string) => (
+              <span class="text-[11px] text-amber-600 tracking-wide">{tag}</span>
+            ))}
+          </div>
+        )}
+      </li>
+    ))
+  }
+</ul>

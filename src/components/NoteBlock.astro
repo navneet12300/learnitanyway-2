@@ -1,0 +1,12 @@
+---
+interface Props {
+  label?: string;
+}
+
+const { label = 'A NOTE · LEARNING IN PUBLIC' } = Astro.props;
+---
+
+<div class="border-l-2 border-amber-500 bg-white/[0.02] px-6 py-5 my-12">
+  <p class="text-[10px] tracking-[0.2em] uppercase text-slate-600 mb-4">{label}</p>
+  <slot />
+</div>
