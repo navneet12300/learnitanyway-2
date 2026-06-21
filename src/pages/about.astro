@@ -6,94 +6,222 @@ import Layout from '../layouts/Layout.astro';
   title="About"
   description="What Learn It Anyway is, why it exists, and what it believes."
 >
-  <header class="mb-12 pb-8 border-b border-white/[0.06]">
-    <h1 class="text-3xl font-extrabold text-white mb-3">About</h1>
-    <p class="text-slate-500 text-sm">What this is, why it exists, and what it believes.</p>
+  <header class="mb-10 pb-8 border-b border-white/[0.06]">
+    <p class="text-[10px] tracking-[0.2em] uppercase text-cyan-400/60 mb-4 font-mono-brand">About</p>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+      Most of us learn things only when life demands them.
+    </h1>
   </header>
 
-  <div class="prose prose-invert prose-slate max-w-none
-    prose-headings:text-white prose-headings:font-bold prose-headings:tracking-tight
-    prose-h2:text-xl prose-h2:mt-12 prose-h2:mb-4
-    prose-p:text-slate-400 prose-p:leading-loose
-    prose-strong:text-slate-200
-    prose-hr:border-white/10
-    prose-li:text-slate-400">
+  <div class="max-w-2xl text-slate-400 text-base leading-loose space-y-5">
+
+    <!-- Opening -->
+    <p>
+      A new project arrives, and suddenly we need to understand Docker. A system breaks, and we rush to
+      learn databases. AI becomes impossible to ignore, and we spend weekends watching videos trying to
+      catch up. Learning becomes reactive. Necessary. Urgent.
+    </p>
+    <p>For a long time, I learned that way too.</p>
+    <p>
+      But I remember listening to senior engineers talk about servers, databases, caching, and system
+      design — and realizing how little I understood. I didn't need any of it at the time. I was just
+      curious and wanted to understand what everyone was talking about.
+    </p>
+    <p>That curiosity never really went away.</p>
+    <p>
+      I consumed endlessly — reels, shorts, random videos, blogs, YouTube tutorials, articles, and tweets.
+      Much of it was just mindless scrolling disguised as productivity. There was always another playlist
+      to save, another tab to open, another idea I promised myself I would learn someday. I kept assuming
+      I would get to it later.
+    </p>
+    <p>
+      Eventually, I realized that if I was going to spend time consuming content anyway, I could spend it
+      learning something useful and documenting it. Understanding doesn't appear when we need it. It
+      compounds long before that.
+    </p>
+    <p>That simple thought became <strong class="text-white">Learn It Anyway</strong>.</p>
+
+    <div class="space-y-1.5 text-slate-500 text-sm pl-1 border-l border-white/[0.08]">
+      <p>Not as a course.</p>
+      <p>Not as a portfolio.</p>
+      <p>Not as a personal brand trying to sound like an authority.</p>
+      <p class="text-slate-300 pt-1">Just a notebook on the internet.</p>
+      <p class="text-slate-300">A place to document curiosity in public.</p>
+    </div>
 
     <p>
-      <strong>Learn It Anyway</strong> is a personal learning journal and digital garden by Navneet Mahajan.
-      It's a place to document curiosity in public — primarily around software architecture, systems,
-      AI, databases, and DevOps, with occasional notes on books, ideas, and life.
+      Most of the notes here revolve around software architecture, backend engineering, databases, AI,
+      DevOps, and engineering decisions. Sometimes they drift into books, mental models, or ideas that
+      seem too interesting not to write down.
     </p>
+    <div class="text-sm space-y-1">
+      <p class="text-slate-500">The topics change.</p>
+      <p class="text-slate-300">Curiosity doesn't.</p>
+    </div>
 
-    <p>
-      It is not a course, a portfolio, a newsletter funnel, or an authority platform.
-      It is simply a curious person trying to understand how things work.
-    </p>
+    <hr class="border-white/[0.06] !my-10" />
 
-    <hr />
+    <!-- Learn Before You Need It -->
+    <div class="space-y-4">
+      <h2 class="text-white font-bold text-lg font-mono-brand">Learn Before You Need It</h2>
+      <p>That's the philosophy behind everything here.</p>
+      <p>
+        Because understanding something before necessity arrives changes the way you think. It creates
+        intuition. It makes decisions easier. It makes adapting easier.
+      </p>
+      <p>Technology changes constantly. Frameworks rise and disappear. Trends come and go.</p>
+      <p>But understanding how things work keeps paying dividends.</p>
+      <div class="border-l-2 border-cyan-400 pl-4 py-1 space-y-1">
+        <p class="text-slate-300">Learning isn't an expense.</p>
+        <p class="text-cyan-400 font-mono-brand text-sm tracking-wide">It's compound interest.</p>
+      </div>
+    </div>
 
-    <h2>Core Motto</h2>
-    <p class="text-xl text-white font-semibold not-prose mb-4">Learn before you need it.</p>
-    <p>
-      Most people learn things only when circumstances force them to.
-      Learn It Anyway is built on the belief that understanding compounds over time.
-      Learning something before you urgently need it creates better decisions, deeper intuition,
-      and adaptability.
-    </p>
+    <hr class="border-white/[0.06] !my-10" />
 
-    <h2>Curiosity Compounds</h2>
-    <p>
-      Technology changes. Frameworks come and go. But understanding how things work keeps paying dividends.
-      Learning is not an expense. It is compound interest.
-    </p>
+    <!-- Curiosity Is an Advantage -->
+    <div class="space-y-4">
+      <h2 class="text-white font-bold text-lg font-mono-brand">Curiosity Is an Advantage</h2>
+      <p>
+        Darwin's idea of "survival of the fittest" is often misunderstood. The winners aren't always
+        the strongest or the smartest.
+      </p>
+      <p>They are the ones that adapt.</p>
+      <p>And in technology, adaptability comes from curiosity.</p>
 
-    <h2>Survival of the Curious</h2>
-    <p>
-      Inspired by Darwin's idea of "Survival of the Fittest" — the fittest are not necessarily
-      the strongest or the smartest. They are the most adaptable. In technology, adaptability
-      comes from curiosity. Curious people continue learning. Curious people adapt. Curious people
-      survive change.
-    </p>
+      <div class="space-y-2 pt-1">
+        {[
+          { text: 'Curious people keep asking questions.', accent: false },
+          { text: 'Curious people keep learning.',         accent: false },
+          { text: 'Curious people adapt.',                 accent: false },
+          { text: 'Curious people survive.',               accent: true  },
+        ].map(({ text, accent }) => (
+          <div class="flex items-center gap-3 text-sm font-mono-brand">
+            <span class="text-cyan-400/40">›</span>
+            <span class={accent ? 'text-cyan-400' : 'text-slate-300'}>{text}</span>
+          </div>
+        ))}
+      </div>
 
-    <h2>From Consumer to Creator</h2>
-    <p>
-      For years, information was mostly consumed. Books. Courses. Videos. Articles. Posts.
-      Eventually, consuming stopped being enough. Learn It Anyway is an attempt to contribute —
-      to share, to write, to think in public. Less scrolling. More making.
-    </p>
+      <p>That matters even more now.</p>
+      <p>
+        As AI becomes increasingly capable, writing code is becoming easier. But software engineering
+        has never been just about typing code.
+      </p>
+      <p class="text-white font-medium">Someone still has to decide.</p>
 
-    <h2>Learning In Public</h2>
-    <p>
-      This website does not claim authority. It does not assume expertise. Mistakes are expected.
-      Opinions can change. Knowledge evolves. If someone knows more, corrections are welcome.
-      If someone is learning too, they are welcome to learn together. The goal is not to teach
-      from a pedestal. The goal is to think in public.
-    </p>
+      <!-- Trade-off questions -->
+      <div class="border border-white/[0.08] bg-white/[0.02] px-5 py-4 font-mono-brand text-sm space-y-2">
+        {[
+          'Monolith or microservices?',
+          'PostgreSQL or MongoDB?',
+          'Redis or no Redis?',
+          'Optimize now or later?',
+          'Build it or buy it?',
+        ].map((q) => (
+          <p class="text-slate-400"><span class="text-cyan-400/50 mr-2">_</span>{q}</p>
+        ))}
+      </div>
 
-    <hr />
+      <p>Trade-offs don't disappear. If anything, they become more important.</p>
+      <p>Good decisions require understanding.</p>
 
-    <h2>Topics</h2>
-    <p><strong>Primary:</strong> Software Architecture · System Design · Backend Engineering · Databases · DevOps · AI · Frontend · Engineering Decisions</p>
-    <p><strong>Side Quests:</strong> Books · Mental Models · Interesting Ideas · Life Lessons · Notes Worth Remembering</p>
+      <div class="space-y-1.5 text-sm text-slate-500 pl-1 border-l border-white/[0.08]">
+        <p>Not memorization.</p>
+        <p>Not blindly following trends.</p>
+        <p class="text-slate-300">Understanding concepts.</p>
+        <p class="text-slate-300">Building intuition.</p>
+        <p class="text-slate-300">Thinking in trade-offs.</p>
+      </div>
 
-    <hr />
+      <p>That's what I'm trying to learn.</p>
+    </div>
 
-    <h2>Values</h2>
-    <ul>
-      <li>Curiosity over credentials</li>
-      <li>Understanding over memorization</li>
-      <li>Adaptability over certainty</li>
-      <li>Progress over perfection</li>
-      <li>Creation over consumption</li>
-      <li>Learning before necessity</li>
-      <li>Intellectual honesty over authority</li>
-    </ul>
+    <hr class="border-white/[0.06] !my-10" />
 
-    <hr />
+    <!-- From Consuming to Creating -->
+    <div class="space-y-4">
+      <h2 class="text-white font-bold text-lg font-mono-brand">From Consuming to Creating</h2>
+      <p>For years, I consumed far more than I created.</p>
+      <p class="text-slate-500 text-sm">Books. Videos. Podcasts. Courses. Endless information.</p>
+      <p class="text-slate-500 text-sm">And plenty of reels, shorts, and hours lost to mindless scrolling.</p>
+      <p>Eventually, consuming stopped being enough.</p>
+      <div class="space-y-1.5 text-sm font-mono-brand text-slate-400">
+        <p>Writing became a way to understand.</p>
+        <p>Explaining became a way to think.</p>
+        <p>Sharing became a way to learn.</p>
+      </div>
+      <p>This website is an attempt to create more than I consume.</p>
+      <div class="space-y-1 text-sm">
+        <p class="text-slate-500">Less scrolling.</p>
+        <p class="text-slate-300">More making.</p>
+      </div>
+    </div>
 
-    <p class="text-slate-300 font-medium not-prose text-sm leading-relaxed border-l-2 border-cyan-400 pl-4 py-1">
-      Learn It Anyway is a curious engineer's notebook on the internet — a place to understand
-      how things work, document the journey, and learn before it becomes necessary.
-    </p>
+    <hr class="border-white/[0.06] !my-10" />
+
+    <!-- Where the name came from -->
+    <div class="space-y-4">
+      <p>So I decided to learn. One rabbit hole at a time.</p>
+      <p class="text-slate-500 text-sm">
+        No mentor to guide me through it. No team to bounce decisions off. No production system to
+        test ideas against. Just curiosity and the internet.
+      </p>
+      <p>And I kept running into reasons not to bother.</p>
+      <div class="space-y-1 text-slate-500 text-sm pl-1 border-l border-white/[0.08]">
+        <p>I can't implement this at scale right now.</p>
+        <p>I don't have the context a senior engineer has.</p>
+        <p>What if I get it wrong?</p>
+      </div>
+      <p>But I kept going anyway.</p>
+      <div class="space-y-2 pt-1 text-sm font-mono-brand">
+        <p class="text-slate-400">Even without a mentor — <span class="text-white">I'll learn it anyway.</span></p>
+        <p class="text-slate-400">Even without a way to implement it right now — <span class="text-white">I'll learn it anyway.</span></p>
+        <p class="text-slate-400">Even if I end up getting half of it wrong — <span class="text-white">I'll learn it anyway.</span></p>
+      </div>
+      <p class="text-slate-500 text-sm">That's where the name came from.</p>
+    </div>
+
+    <hr class="border-white/[0.06] !my-10" />
+
+    <!-- Learning in Public -->
+    <div class="space-y-4">
+      <h2 class="text-white font-bold text-lg font-mono-brand">Learning in Public</h2>
+      <p>Nothing here is presented as absolute truth.</p>
+      <div class="space-y-1 text-slate-500 text-sm">
+        <p>Some ideas will change.</p>
+        <p>Some opinions will be wrong.</p>
+        <p>Some notes will age badly.</p>
+      </div>
+      <p>That's fine.</p>
+      <p>Knowledge evolves, and hopefully so will I.</p>
+      <p>
+        If you know something I don't, corrections are welcome.<br/>
+        If you're learning too, you're welcome to learn alongside me.
+      </p>
+      <p>
+        Because the goal isn't to teach from a pedestal. The goal is simply to understand how things
+        work — and leave behind notes for whoever might find them useful.
+      </p>
+    </div>
+
+    <hr class="border-white/[0.06] !my-10" />
+
+    <!-- Closing manifesto -->
+    <div class="border border-white/[0.08] bg-white/[0.02] p-6 sm:p-8">
+      <p class="text-white font-semibold mb-5">
+        <span class="text-cyan-400">Learn It Anyway</span> is a curious engineer's notebook on the internet.
+      </p>
+      <div class="space-y-2 text-sm text-slate-400 font-mono-brand">
+        <p>Curiosity over credentials.</p>
+        <p>Understanding over memorization.</p>
+        <p>Adaptability over certainty.</p>
+        <p>Creation over consumption.</p>
+      </div>
+      <p class="mt-6 text-slate-500 text-sm">
+        And the belief that some things are worth learning long before life asks for them.
+      </p>
+    </div>
+
   </div>
 </Layout>

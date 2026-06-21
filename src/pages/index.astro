@@ -13,40 +13,46 @@ const latest = allArticles
 <Layout title="Home" description="A curious engineer's notebook on the internet. Systems, architecture, databases, AI — and the ideas worth understanding before you need them.">
 
   <!-- Hero -->
-  <section class="py-24 border-b border-white/[0.06] max-w-2xl">
-    <div class="inline-flex items-center gap-2 text-[10px] text-cyan-400 border border-cyan-400/30 bg-cyan-400/[0.05] px-3 py-1.5 mb-12 tracking-[0.25em] uppercase rounded-full font-mono-brand">
+  <section class="pt-4 pb-20 border-b border-white/[0.06] max-w-2xl">
+    <div class="inline-flex items-center gap-2 text-[10px] text-cyan-400 border border-cyan-400/30 bg-cyan-400/[0.05] px-3 py-1.5 mb-3 tracking-[0.25em] uppercase rounded-full font-mono-brand">
       <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span>
-      Learning in Public
+      LEARNING IN PUBLIC
     </div>
 
-    <h1 class="font-mono-brand font-extrabold text-white text-6xl leading-[1.1] tracking-tight mb-8">
+    <h1 class="font-mono-brand font-extrabold text-white text-4xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tight mb-8">
       Learn before you<br/>
       <span class="text-cyan-400">need</span> it.
     </h1>
 
-    <p class="text-slate-200 text-lg leading-relaxed mb-4 max-w-xl">
-      Understanding compounds over time. Most people learn when circumstances force them to.
-      This is a different approach.
-    </p>
+    <div class="mb-10 space-y-5 text-sm sm:text-base">
+      <div class="space-y-1 font-mono-brand">
+        <p class="text-slate-300">AI can write code.</p>
+        <p class="text-white font-semibold">Humans still make decisions.</p>
+      </div>
+      <p class="text-slate-400 leading-relaxed">
+        <strong class="text-white font-medium">Navneet R. Mahajan</strong> — a curious engineer's notebook on software architecture, systems, AI,
+        and understanding how things work.
+      </p>
+      <p class="text-cyan-400/80 font-mono-brand text-xs tracking-widest uppercase">Because curiosity compounds.</p>
+      <p class="text-slate-500 text-sm leading-relaxed">
+        Just curiosity, experiments, mistakes, and notes from the journey.
+      </p>
+    </div>
 
-    <p class="text-slate-400 text-base leading-relaxed mb-12 max-w-xl">
-      I'm <strong class="text-white font-medium">Navneet</strong> — a curious engineer documenting
-      what I'm learning in public. Systems, architecture, databases, AI — and occasionally books and life.
-      No guru. No authority. Just curiosity, honest notes, and the internet.
-    </p>
+    <p class="text-slate-600 text-xs font-mono-brand mb-6">No mentor. No plan. Learning it anyway.</p>
 
-    <div class="flex items-center gap-4">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
       <a
         href="/articles"
-        class="font-mono-brand text-xs tracking-[0.12em] uppercase bg-cyan-400 text-black font-bold px-7 py-3.5 hover:bg-cyan-300 transition-colors"
+        class="font-mono-brand text-xs tracking-[0.12em] uppercase bg-cyan-400 text-black font-bold px-7 py-3.5 hover:bg-cyan-300 transition-colors w-full sm:w-auto text-center"
       >
-        Start Reading →
+        Read Articles →
       </a>
       <a
         href="/about"
-        class="font-mono-brand text-xs tracking-[0.12em] uppercase border border-white/15 text-slate-300 px-7 py-3.5 hover:border-white/40 hover:text-white transition-colors"
+        class="font-mono-brand text-xs tracking-[0.12em] uppercase border border-white/15 text-slate-300 px-7 py-3.5 hover:border-white/40 hover:text-white transition-colors w-full sm:w-auto text-center"
       >
-        The Mission
+        About
       </a>
     </div>
   </section>
@@ -54,10 +60,10 @@ const latest = allArticles
   <!-- Philosophy Note -->
   <NoteBlock>
     <div class="text-slate-300 text-sm leading-loose">
-      <p class="font-medium text-white mb-2">I'm not an authority.</p>
-      <p>If you know something I don't — challenge my thinking.</p>
-      <p>If I'm wrong — correct me.</p>
-      <p>And if you're curious too — learn with me.</p>
+      <p class="font-medium text-white mb-3">This is a notebook, not a course.</p>
+      <p>I write to understand things — not to teach them. Everything here is a work in progress.</p>
+      <p class="mt-3">Catch me getting something wrong? <span class="text-white">Tell me.</span></p>
+      <p>Working through the same ideas? <span class="text-white">Learn with me.</span></p>
     </div>
   </NoteBlock>
 

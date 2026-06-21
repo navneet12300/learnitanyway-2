@@ -2,14 +2,49 @@
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  article?: boolean;
+  publishDate?: string;
 }
 
 const {
   title,
-  description = "A curious engineer's notebook on the internet.",
+  description = "A curious engineer's notebook on the internet. Software architecture, systems, AI, databases — and the ideas worth understanding before you need them.",
+  image,
+  article = false,
+  publishDate,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const siteURL = 'https://learnitanyway.online';
+const fullTitle = title === 'Home' ? 'Learn It Anyway — Navneet R. Mahajan' : `${title} | Learn It Anyway`;
+const ogImage = image ?? `${siteURL}/og-default.png`;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Navneet R. Mahajan',
+  alternateName: ['Navneet Mahajan', 'Navneet R Mahajan'],
+  url: `${siteURL}/about`,
+  sameAs: [],
+  jobTitle: 'Software Engineer',
+  description: 'A curious engineer documenting what he learns — software architecture, systems, AI, databases, and ideas that make him stop and wonder.',
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Learn It Anyway',
+  alternateName: 'Learn It Anyway by Navneet Mahajan',
+  url: siteURL,
+  description: "Navneet R. Mahajan's learning journal — software architecture, systems, AI, and understanding how things work.",
+  author: {
+    '@type': 'Person',
+    name: 'Navneet R. Mahajan',
+    alternateName: ['Navneet Mahajan', 'Navneet R Mahajan'],
+  },
+  inLanguage: 'en-US',
+};
 ---
 
 <!doctype html>
@@ -17,47 +52,78 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta -->
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <meta name="author" content="Navneet R. Mahajan" />
+    <meta name="keywords" content="Navneet Mahajan, Navneet R. Mahajan, Navneet R Mahajan, software architecture, system design, backend engineering, databases, AI, DevOps, learning in public, engineer notebook, learn it anyway" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="alternate" type="application/rss+xml" title="Learn It Anyway" href="/rss.xml" />
-    <title>{title === 'Home' ? 'Learn It Anyway' : `${title} | Learn It Anyway`}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:site_name" content="Learn It Anyway" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`${fullTitle} — Learn It Anyway`} />
+    <meta property="og:locale" content="en_US" />
+    {article && publishDate && <meta property="article:published_time" content={publishDate} />}
+    <meta property="article:author" content="Navneet R. Mahajan" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:creator" content="@navneetrmahajan" />
+    <meta name="twitter:site" content="@navneetrmahajan" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
     <style>
       html { scroll-behavior: smooth; }
       .font-mono-brand { font-family: 'JetBrains Mono', monospace; }
     </style>
   </head>
   <body class="bg-[#080808] text-slate-300 font-sans">
-    <nav class="border-b border-white/[0.05] px-8 py-5">
+    <nav class="border-b border-white/[0.05] px-4 sm:px-8 py-4 sm:py-5">
       <div class="max-w-5xl mx-auto flex items-center justify-between">
         <a
           href="/"
-          class="flex items-center gap-2.5 text-white text-[11px] tracking-[0.12em] uppercase font-semibold hover:text-cyan-400 transition-colors font-mono-brand"
+          class="flex items-center gap-2.5 text-white text-[11px] tracking-[0.12em] uppercase font-semibold hover:text-cyan-400 transition-colors font-mono-brand shrink-0"
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="shrink-0 text-cyan-400">
-            <path d="M7 0L14 7L7 14L0 7L7 0Z" fill="currentColor"/>
-          </svg>
+          <span class="text-cyan-400 font-mono-brand font-bold text-sm leading-none">›</span>
           Learn It Anyway
         </a>
-        <div class="flex items-center gap-5">
+        <div class="flex items-center gap-3 sm:gap-5">
           <a href="/articles" class="text-[11px] text-slate-500 hover:text-cyan-400 transition-colors tracking-wide font-mono-brand">Articles</a>
-          <a href="/side-quests" class="text-[11px] text-slate-500 hover:text-cyan-400 transition-colors tracking-wide font-mono-brand">Side Quests</a>
+          <a href="/side-quests" class="hidden sm:block text-[11px] text-slate-500 hover:text-cyan-400 transition-colors tracking-wide font-mono-brand">Side Quests</a>
           <a href="/roadmap" class="text-[11px] text-slate-500 hover:text-cyan-400 transition-colors tracking-wide font-mono-brand">Roadmap</a>
           <a href="/about" class="text-[11px] text-slate-500 hover:text-cyan-400 transition-colors tracking-wide font-mono-brand">About</a>
-          <a href="/rss.xml" class="text-[11px] text-slate-500 hover:text-cyan-400 transition-colors tracking-wide font-mono-brand">RSS</a>
+          <a href="/rss.xml" class="hidden sm:block text-[11px] text-slate-500 hover:text-cyan-400 transition-colors tracking-wide font-mono-brand">RSS</a>
         </div>
       </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto px-8 py-20">
+    <main class="max-w-5xl mx-auto px-4 sm:px-8 pt-6 sm:pt-10 pb-16 sm:pb-20">
       <slot />
     </main>
 
-    <footer class="border-t border-white/[0.05] px-8 py-8 mt-8">
+    <footer class="border-t border-white/[0.05] px-4 sm:px-8 py-6 sm:py-8 mt-6 sm:mt-8">
       <div class="max-w-5xl mx-auto flex items-center justify-between text-[11px] text-slate-600 font-mono-brand">
-        <span>© {new Date().getFullYear()} Navneet Mahajan</span>
+        <span>© {new Date().getFullYear()} Navneet R. Mahajan</span>
         <a href="/rss.xml" class="hover:text-cyan-400 transition-colors">RSS Feed</a>
       </div>
     </footer>

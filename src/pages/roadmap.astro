@@ -1,82 +1,236 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const topics = [
+// To mark a topic as published, set published: true
+// The cyan dot will appear automatically next to it
+
+const phases = [
   {
-    theme: 'Systems & Architecture',
-    items: [
-      { title: 'B-trees and storage engines', status: 'writing' },
-      { title: 'How consensus algorithms work (Raft, Paxos)', status: 'planned' },
-      { title: 'Event sourcing in practice', status: 'planned' },
-      { title: 'The anatomy of a distributed system', status: 'planned' },
+    milestone: '01',
+    title: 'Architecture Foundations',
+    description: 'How systems are shaped at the macro level — before a single line of code.',
+    active: true,
+    families: [
+      {
+        name: 'System Architecture',
+        topics: [
+          { title: 'Choosing Your System\'s Structure: Monolith vs. Modular Monolith vs. Microservices vs. Serverless', insight: 'The architecture that got you to 100 users will kill you at 100,000', published: false },
+          { title: 'Organizing Your Codebase: Monorepo vs. Polyrepo', insight: "It's not just a folder structure — it's a team coordination decision", published: false },
+          { title: 'How Services Talk to Each Other: Event-Driven vs. Request-Driven Architecture', insight: "Why your services shouldn't talk to each other directly", published: false },
+          { title: 'Splitting Reads from Writes: An Introduction to CQRS', insight: 'Read and write patterns are different problems. Stop solving them the same way', published: false },
+          { title: 'Storing Every Change as an Event: Event Sourcing Explained', insight: 'What if you never deleted anything and could replay history?', published: false },
+        ],
+      },
+      {
+        name: 'Multi-Tenancy',
+        topics: [
+          { title: 'Data Isolation Models: Shared DB → DB-per-Tenant', insight: "One database for all customers or one per customer? The trade-off no one warns you about", published: false },
+          { title: 'Tenant Identification Strategies', insight: "Subdomains, paths, headers — how your app knows who's knocking", published: false },
+          { title: 'Tenant Configuration & Feature Inheritance', insight: 'Global → Plan → Tenant → User. The hierarchy that runs every SaaS', published: false },
+          { title: 'Noisy Neighbor Problem & Mitigation', insight: 'One bad tenant can bring down your whole platform', published: false },
+          { title: 'White-Labeling Architecture', insight: "When a customer wants it to look like their product, not yours", published: false },
+        ],
+      },
     ],
   },
   {
-    theme: 'Databases',
-    items: [
-      { title: 'LSM trees vs B-trees — when each wins', status: 'exploring' },
-      { title: 'PostgreSQL internals', status: 'planned' },
-      { title: 'When to use which database', status: 'planned' },
+    milestone: '02',
+    title: 'Core Systems',
+    description: 'Who gets access, how services talk, and where the data lives.',
+    active: false,
+    families: [
+      {
+        name: 'Access Control & Authentication',
+        topics: [
+          { title: 'RBAC vs. ABAC vs. ReBAC vs. PBAC', insight: 'Roles are not enough. Here\'s when they break down', published: false },
+          { title: 'Permission Granularity: Coarse → Row-Level', insight: '"Can access Billing" vs. "Can edit invoice #4821 in their region"', published: false },
+          { title: 'Sessions vs. JWTs; Token Storage; Refresh Strategies', insight: 'Where you store your JWT is a security decision, not a preference', published: false },
+          { title: 'SSO / SAML / OIDC; MFA; API Auth Patterns', insight: 'Every enterprise deal will ask: do you support SSO?', published: false },
+          { title: 'Session Management: Concurrency, Revocation, Device Binding', insight: 'How do you log someone out of every device instantly?', published: false },
+        ],
+      },
+      {
+        name: 'API Design & Communication',
+        topics: [
+          { title: 'REST vs. GraphQL vs. gRPC vs. WebSocket vs. SSE', insight: "Picking an API protocol isn't a tech choice. It's a product decision", published: false },
+          { title: 'API Versioning; Pagination (Offset vs. Cursor)', insight: 'Offset pagination breaks at page 500. Here\'s what you use instead', published: false },
+          { title: 'Rate Limiting: Fixed, Sliding, Token Bucket, Leaky Bucket', insight: 'Rate limiting is not about blocking users. It\'s about protecting your system', published: false },
+          { title: 'Idempotency, Retry Safety, Exponential Backoff', insight: 'What happens when the payment request fires twice?', published: false },
+          { title: 'API Gateway; BFF Pattern', insight: 'Should your mobile app and web app talk to the same API?', published: false },
+        ],
+      },
+      {
+        name: 'Data Architecture & Storage',
+        topics: [
+          { title: 'DB Selection: Relational vs. Document vs. Wide-Column vs. Graph vs. NewSQL', insight: "PostgreSQL isn't always the answer. But it usually is", published: false },
+          { title: 'Normalization vs. Denormalization vs. Hybrid', insight: 'Normalized for writes. Denormalized for reads. Why not both?', published: false },
+          { title: 'Consistency Models: Strong, Read-After-Write, Eventual, Causal', insight: 'You updated your profile. Why does the page still show the old name?', published: false },
+          { title: 'Caching: L1/L2/L3; Eviction Strategies', insight: 'The cache that saved the database. And the one that corrupted production', published: false },
+          { title: 'Search Architecture; Blob Storage; Sharding & Partitioning', insight: 'LIKE queries will betray you. Here\'s when to move to real search', published: false },
+        ],
+      },
     ],
   },
   {
-    theme: 'DevOps & Infrastructure',
-    items: [
-      { title: 'Container networking explained', status: 'planned' },
-      { title: 'Kubernetes control plane internals', status: 'planned' },
-      { title: 'How DNS actually works', status: 'exploring' },
+    milestone: '03',
+    title: 'Full Stack Engineering',
+    description: 'Frontend choices that affect products, backend choices that affect reliability.',
+    active: false,
+    families: [
+      {
+        name: 'Frontend Architecture',
+        topics: [
+          { title: 'SPA vs. SSR vs. SSG vs. ISR vs. Streaming SSR vs. Islands', insight: "Rendering strategy is not a framework decision. It's a product decision", published: false },
+          { title: 'State Management: React Query vs. Zustand vs. Redux vs. Context vs. URL', insight: "Most global state shouldn't exist. Here's what to use instead", published: false },
+          { title: 'Component Architecture: Design Systems, Styling Approaches', insight: 'Build your own design system or adopt one? The honest answer', published: false },
+          { title: 'Bundling: Vite vs. Webpack; Code Splitting; Tree Shaking', insight: 'Your bundle is 4MB. Your users on 4G are not happy', published: false },
+          { title: 'Forms, Validation, Optimistic vs. Pessimistic Updates', insight: 'Optimistic UI feels fast. Until it has to roll back in front of the user', published: false },
+        ],
+      },
+      {
+        name: 'Backend Architecture & Processing',
+        topics: [
+          { title: 'Service Communication: Sync vs. Async; Saga Pattern', insight: 'Distributed transactions without distributed chaos', published: false },
+          { title: 'Resilience: Circuit Breaker, Bulkhead, Retry Policies', insight: 'Your third-party API just went down. Does your whole system go with it?', published: false },
+          { title: 'Background Jobs: Queues, Cron, Workflow Engines', insight: "Some things shouldn't happen in the request cycle", published: false },
+          { title: 'Distributed Locking & Coordination', insight: 'Two servers. One job. What could go wrong?', published: false },
+          { title: 'Config Management, Feature Flags, Secrets Management', insight: "Feature flags are not just for A/B tests. They're your kill switch", published: false },
+        ],
+      },
     ],
   },
   {
-    theme: 'AI Engineering',
-    items: [
-      { title: 'Vector databases and embeddings', status: 'exploring' },
-      { title: 'Building RAG systems', status: 'planned' },
-      { title: 'LLM inference and KV cache', status: 'planned' },
+    milestone: '04',
+    title: 'Production Engineering',
+    description: 'AI integration, infrastructure, security, and the reality of running things at scale.',
+    active: false,
+    families: [
+      {
+        name: 'Data Pipelines & AI Integration',
+        topics: [
+          { title: 'ETL vs. ELT vs. Streaming vs. Hybrid Pipelines', insight: 'Batch is simple. Streaming is real-time. Hybrid is reality', published: false },
+          { title: 'Analytics DB: OLAP, ClickHouse, DuckDB; Data Modeling', insight: 'Your production DB is not your analytics DB. Stop treating it like one', published: false },
+          { title: 'Product Analytics: Build vs. Buy; Event Taxonomy', insight: 'The naming convention you skip today will haunt your data team for years', published: false },
+          { title: 'AI Integration: API vs. Self-Hosted; Prompt Management; Fallbacks', insight: 'What happens to your AI feature when OpenAI has an outage?', published: false },
+          { title: 'RAG Architecture: Vector Stores, Chunking, Hybrid Search, AI Safety', insight: 'Not all AI features need GPT-4. And not all search needs to be semantic', published: false },
+        ],
+      },
+      {
+        name: 'Infrastructure & Deployment',
+        topics: [
+          { title: 'Cloud Strategy: Single vs. Multi vs. Hybrid', insight: 'Multi-cloud sounds smart. Until you have to operate it', published: false },
+          { title: 'Compute: K8s vs. Managed Containers vs. PaaS vs. Serverless', insight: 'Kubernetes is not a goal. It\'s a trade-off', published: false },
+          { title: 'Infrastructure as Code: Terraform vs. Pulumi vs. CDK', insight: "If your infra isn't in code, it's in someone's memory. That person will leave", published: false },
+          { title: 'Deployment Strategies: Rolling, Blue-Green, Canary, GitOps', insight: 'How do you release at 3pm on a Friday and sleep at night?', published: false },
+          { title: 'CI/CD Pipelines; Branching; DB Migrations; Artifact Promotion', insight: 'Build once. Promote everywhere. Never rebuild per environment', published: false },
+        ],
+      },
+      {
+        name: 'Security, Observability & Scaling',
+        topics: [
+          { title: 'Application Security: XSS, CSRF, SAST/DAST, Supply Chain', insight: "The vulnerability wasn't in your code. It was in your dependency", published: false },
+          { title: 'Data Security: Encryption, Key Management, PII, Data Classification', insight: "Encryption at rest is table stakes. Here's what most teams miss", published: false },
+          { title: 'Observability: Logs, Metrics, Traces, Profiling; SLOs & Alerting', insight: "You can't fix what you can't see. Alert on symptoms, not causes", published: false },
+          { title: 'Testing Strategy: Pyramid, Contract Tests, Load Testing, Test Data', insight: 'Unit tests tell you the code works. Load tests tell you it survives reality', published: false },
+          { title: 'Scaling Dimensions; Bottleneck Identification; FinOps; DR & HA', insight: 'Scale is not just adding more servers. It\'s knowing which bottleneck to fix first', published: false },
+        ],
+      },
     ],
   },
 ];
 
-const statusColor: Record<string, string> = {
-  exploring: 'text-cyan-400',
-  writing: 'text-cyan-300',
-  planned: 'text-slate-600',
-};
+const bonus = [
+  { title: 'Internationalization & Localization Architecture', insight: 'Adding i18n after launch is a retrofit, not a feature' },
+  { title: 'Developer Experience: Local Dev, ADRs, Documentation', insight: 'The best documentation is the one your newest hire actually reads' },
+  { title: 'SaaS Pricing Model & Metering Architecture', insight: "Your pricing model is an architecture decision, not just a business one" },
+  { title: 'Network Security & Zero Trust', insight: 'Stop trusting your own network. Verify everything, every time' },
+  { title: 'Chaos Engineering & Postmortem Culture', insight: 'Break it on purpose before it breaks on its own' },
+];
 ---
 
-<Layout title="Roadmap" description="Topics I'm learning, exploring, or planning to write about.">
+<Layout title="Roadmap" description="The Architect's Mindset — a structured learning roadmap across 10 topic families, 4 milestones, by Navneet R. Mahajan.">
+
   <header class="mb-12 pb-8 border-b border-white/[0.06]">
-    <h1 class="text-3xl font-extrabold text-white mb-3">Roadmap</h1>
-    <p class="text-slate-500 text-sm">
-      Topics I'm learning, exploring, or planning to write about. Updated as I go.
+    <p class="text-[10px] tracking-[0.2em] uppercase text-cyan-400/60 mb-4 font-mono-brand">Learn It Anyway — Learning Roadmap</p>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-3 leading-tight">The Architect's Mindset</h1>
+    <p class="text-slate-500 text-sm max-w-xl">
+      Ten topic families. Four milestones. A structured path through the decisions that define how
+      modern software systems are built and run. Articles publish here as each topic is studied.
     </p>
-    <div class="flex gap-5 mt-5 text-[11px] tracking-wide">
-      <span class="text-cyan-300">● writing</span>
-      <span class="text-cyan-400">● exploring</span>
-      <span class="text-slate-600">● planned</span>
-    </div>
   </header>
 
-  <div class="space-y-12">
-    {
-      topics.map((group) => (
-        <section>
-          <h2 class="text-white font-bold text-sm tracking-widest uppercase mb-5 flex items-center gap-3">
-            <span>{group.theme}</span>
-            <span class="h-px flex-1 bg-white/[0.06]"></span>
-          </h2>
-          <ul class="space-y-3">
-            {group.items.map((item) => (
-              <li class="flex items-baseline justify-between gap-4">
-                <span class="text-slate-400 text-sm">{item.title}</span>
-                <span class={`text-[11px] tracking-wide whitespace-nowrap shrink-0 ${statusColor[item.status]}`}>
-                  {item.status}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))
-    }
+  <!-- Phases -->
+  <div class="space-y-16">
+    {phases.map((phase) => (
+      <div class="relative pl-8 sm:pl-12 border-l-2 border-white/[0.08]">
+
+        <!-- Milestone dot on the border -->
+        <div class={`absolute -left-[5px] top-[6px] w-2.5 h-2.5 rounded-full ring-2 ring-[#080808] ${phase.active ? 'bg-cyan-400' : 'bg-slate-800 border border-slate-700'}`}></div>
+
+        <!-- Milestone label: desktop = absolute left, mobile = inline above title -->
+        <div class="hidden sm:block absolute -left-px top-0">
+          <div class="text-[10px] font-mono-brand tracking-[0.2em] uppercase px-2.5 py-1 border border-white/[0.08] bg-[#080808] text-slate-500 -translate-x-full -translate-y-[1px]">
+            milestone {phase.milestone}
+          </div>
+        </div>
+
+        <div class="pt-1 mb-8">
+          <p class="sm:hidden text-[10px] font-mono-brand tracking-[0.2em] uppercase text-slate-600 mb-2">milestone {phase.milestone}</p>
+          <h2 class="text-white font-extrabold text-xl sm:text-2xl font-mono-brand mb-1">{phase.title}</h2>
+          <p class="text-slate-500 text-sm">{phase.description}</p>
+        </div>
+
+        <!-- Families -->
+        <div class="space-y-10">
+          {phase.families.map((family) => (
+            <div>
+              <h3 class="text-[10px] tracking-[0.2em] uppercase text-slate-600 font-mono-brand mb-4 flex items-center gap-3">
+                <span>{family.name}</span>
+                <span class="h-px flex-1 bg-white/[0.04]"></span>
+              </h3>
+              <ul class="space-y-3.5">
+                {family.topics.map((topic) => (
+                  <li class="flex items-start gap-3">
+                    <span class={`mt-[5px] shrink-0 w-2 h-2 rounded-full ring-2 ring-[#080808] ${topic.published ? 'bg-cyan-400' : 'bg-[#080808] border border-slate-700'}`}></span>
+                    <div>
+                      <p class={`text-sm font-medium leading-snug ${topic.published ? 'text-white' : 'text-slate-400'}`}>{topic.title}</p>
+                      <p class="text-slate-600 text-xs mt-0.5 leading-relaxed font-mono-brand">{topic.insight}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
   </div>
+
+  <!-- Bonus -->
+  <div class="mt-16 pt-10 border-t border-white/[0.06]">
+    <h2 class="text-[10px] tracking-[0.2em] uppercase text-slate-600 font-mono-brand mb-6 flex items-center gap-3">
+      <span>Bonus — Self-Paced</span>
+      <span class="h-px flex-1 bg-white/[0.04]"></span>
+    </h2>
+    <ul class="space-y-3.5">
+      {bonus.map((item) => (
+        <li class="flex items-start gap-3">
+          <span class="mt-[5px] shrink-0 w-2 h-2 rounded-full bg-[#080808] border border-slate-700 ring-2 ring-[#080808]"></span>
+          <div>
+            <p class="text-slate-400 text-sm font-medium leading-snug">{item.title}</p>
+            <p class="text-slate-600 text-xs mt-0.5 leading-relaxed font-mono-brand">{item.insight}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <!-- Footer note -->
+  <div class="mt-12 border-l-2 border-white/[0.06] pl-4 py-1">
+    <p class="text-slate-600 text-xs font-mono-brand leading-relaxed">
+      This roadmap covers modern software systems with a SaaS lens.<br/>
+      Topics are studied one at a time. Notes get published here as I go.
+    </p>
+  </div>
+
 </Layout>

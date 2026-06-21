@@ -25,8 +25,8 @@ function postUrl(post: AnyPost): string {
 <ul class="divide-y divide-white/[0.06]">
   {
     posts.map((post) => (
-      <li class="py-6">
-        <div class="flex items-baseline justify-between gap-4 mb-1.5">
+      <li class="py-5 sm:py-6">
+        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4 mb-1.5">
           <a
             href={postUrl(post)}
             class="text-white font-semibold text-[15px] leading-snug hover:text-cyan-400 transition-colors"
