@@ -19,30 +19,32 @@ It's not. And the reason it works is the whole point of this article.
 
 ---
 
-## The Two Options, Plainly
+Imagine your company builds three things: a backend API, a frontend web app, and a shared library that both of them use.
 
-Imagine your company builds three things: an API, a web app, and a shared library both of them use.
+The shared library is things both sides need — type definitions, authentication logic, utility functions, validation schemas. It's not a product. It's shared plumbing that lives between your backend and frontend.
+
+Here's how you can organise that:
 
 **Monorepo** — all three live in **one** repository.
 
 ```
 company-repo/
-├── api/
-├── web/
-└── shared/
+├── api/        ← backend
+├── web/        ← frontend
+└── shared/     ← types, auth helpers, utils used by both
 ```
 
-One `git clone` and you have everything. One place. One history. When you change the shared library, the API and the web app that use it are *right there* in the same repo — you can update all three in a single commit.
+One `git clone` and you have everything. One place. One history. When you change something in `shared/`, the API and the web app that use it are *right there* — you can update all three in a single commit.
 
 **Polyrepo** — each thing gets its **own** repository.
 
 ```
-company-api/       ← repo 1
-company-web/       ← repo 2
-company-shared/    ← repo 3
+company-api/       ← backend, repo 1
+company-web/       ← frontend, repo 2
+company-shared/    ← shared library, repo 3
 ```
 
-Three separate clones. Three separate histories. The shared library is now published like a package, and the API and web app install a *version* of it. Change the library, and you have to release a new version, then go update it in the other two repos, one by one.
+Three separate clones. Three separate histories. The shared library is now published like a package, and the API and web app install a *version* of it. Change the shared library, and you have to release a new version, then go update it in the other two repos, one by one.
 
 That's the surface difference. Here's the part nobody tells you:
 
@@ -54,7 +56,7 @@ That's the surface difference. Here's the part nobody tells you:
 
 ---
 
-## Myth-Break: A Monorepo Is NOT a Monolith
+## A Monorepo Is Not a Monolith
 
 Kill this confusion now, because it stops people from making the right call.
 
@@ -97,7 +99,7 @@ If you're a small team with shared code shipping together — that's most of us 
 
 ---
 
-## But Wait — How Does Google Survive One Repo?
+## How Does Google Survive One Repo?
 
 Here's the honest catch. A monorepo has one enemy: **scale.**
 
@@ -124,19 +126,11 @@ Two ideas fix it:
 
 The numbers: as of 2016, over **2 billion lines of code** across ~86 TB, with **40,000 commits a day** by more than 10,000 engineers. About 95% of Google's code sits in that one repo. *(Source: Potvin & Levenberg, Communications of the ACM, 2016.)*
 
-You'll never be Google. But Blaze has an open-source twin you *can* use:
+You'll never be Google. But Blaze has an open-source version you *can* use. Three options, depending on your stack:
 
-```
-Bazel        → public version of Blaze. Language-agnostic, powerful,
-               brutal learning curve. Overkill unless you're genuinely huge.
-
-Nx           → JS/TS-focused. Dependency graph, caching, scaffolding,
-               lots of structure. Popular in the Node world.
-
-Turborepo    → from Vercel. Deliberately minimal. Tell it your projects
-               and what depends on what — it does the rest. Easiest
-               on-ramp for a Next.js or Node stack.
-```
+- **Bazel** — the public version of Blaze. Language-agnostic, very powerful, brutal learning curve. Overkill unless you're genuinely large.
+- **Nx** — JS/TS-focused. Dependency graph, caching, scaffolding, lots of structure. Popular in the Node world.
+- **Turborepo** — from Vercel. Deliberately minimal. Tell it your projects and what depends on what — it does the graph and caching and stays out of your way. Easiest starting point for a Next.js or Node stack.
 
 All three do the same two things: **build only what changed, cache what didn't.**
 
@@ -150,17 +144,9 @@ Here's where people go wrong in the *other* direction — they bolt Nx onto a tw
 
 The honest sequence:
 
-```
-1. Start with a plain monorepo — folders, workspace config, clean imports.
-   No special tooling.
-
-2. Feel the pain. When CI gets slow enough to annoy you daily — that's
-   the signal.
-
-3. Then add a tool. Turborepo first for a JS/Next.js stack. Nx if you
-   want more structure. Bazel basically never, unless a company hands
-   it to you.
-```
+1. Start with a plain monorepo — folders, workspace config, clean imports. No special tooling.
+2. Feel the pain. When CI gets slow enough to annoy you *daily* — that's the signal.
+3. Then add a tool. Turborepo first for a JS/Next.js stack. Nx if you want more structure. Bazel basically never, unless a company hands it to you.
 
 **These tools are painkillers. Don't take painkillers before you have the pain.**
 
@@ -178,6 +164,6 @@ The tooling doesn't *make* your repo a monorepo — your folders already did tha
 
 *That's Day 2.*
 
-*Next up: your codebase needs internal walls so it doesn't rot into a mess — that's the **Modular Monolith**, where we draw clean boundaries *inside* one codebase.*
+*Next up: your codebase needs internal walls so it doesn't rot into a mess — that's the Modular Monolith, where we draw clean boundaries inside one codebase.*
 
 *[← Back to all articles](/articles)*
